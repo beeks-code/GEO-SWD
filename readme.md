@@ -1,6 +1,6 @@
 # Geo-SWD
 
-> Separate the class distributions while preserving their geometry.
+Separate the class distributions while preserving their geometry.
 
 An experimental representation-learning approach that learns a transformation
 of the feature space by maximizing the distributional separation between two
@@ -14,15 +14,9 @@ So i've been thinking about,
 
 Can we learn a transformation of the features that makes two classes more distributionally separated while preserving the geometry?
 
-So we Given two class distributions A and B, learn a transformation, T(x) such that
-
-it maximizes SWD, max​SWD(T(A),T(B)).
-
-But only SWD maximization using NN would distort the data hence we add some geometry constrains(claude suggested) and Pipeline looks like this
-
-Raw data ->Learn transformation->Increase SWD between classes with geometric constrains-> Standard ML approach.
-
-It worked fine on Decision trees but was super bad for others algorithms, above is its performance for Breast Cancer using DTs.
+So we Given two class distributions A and B, learn a transformation, T(x) such that it maximizes SWD, max​SWD(T(A),T(B)).
+But only SWD maximization using NN would distort the data hence we add some geometry constrains(MSE)
+It worked fine on Decision trees but was super bad for others algorithms.
 
 Our Approach:
 
@@ -97,3 +91,7 @@ Therefore the geometry loss is:
                      │
                      ▼
                 Prediction
+Limitation:
+           This is for binary clf only
+           This is not the most optimal way
+           For Now it works selectively for few models Best for DTs.                  
