@@ -94,4 +94,6 @@ Therefore the geometry loss is:
 Limitation:
            This is for binary clf only
            This is not the most optimal way
-           For Now it works selectively for few models Best for DTs.                  
+           For Now it works selectively for few models Best for DTs.
+
+Disclaimer: This is not the final version.                  
