@@ -21,24 +21,18 @@ device = torch.device("cpu")
 print("Device:", device)
 
 
-# Load and split dataset
+# load and split ds
 data = load_breast_cancer()
 
 X = data.data.astype(np.float32)
 y = data.target.astype(np.int64)
-
-print("\n")
-print("DATASET")
-print("Samples :", X.shape[0])
-print("Features:", X.shape[1])
-print("Classes :", np.unique(y))
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.20, stratify=y, random_state=SEED
 )
 
 
-# Standardize using training data only
+# Normalize
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
@@ -47,11 +41,12 @@ X_train_t = torch.tensor(X_train, dtype=torch.float32, device=device)
 X_test_t = torch.tensor(X_test, dtype=torch.float32, device=device)
 y_train_t = torch.tensor(y_train, dtype=torch.long, device=device)
 
+## Obtain two dist
 A = X_train_t[y_train_t == 0]
 B = X_train_t[y_train_t == 1]
 
 print("\n")
-print("TRAINING DISTRIBUTIONS")
+print("Training distribution")
 print("Class 0:", A.shape)
 print("Class 1:", B.shape)
 
