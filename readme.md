@@ -24,6 +24,8 @@ Raw data ->Learn transformation->Increase SWD between classes with geometric con
 
 It worked fine on Decision trees but was super bad for others algorithms, above is its performance for Breast Cancer using DTs.
 
+Our Approach:
+
 Given two class distributions:
 
     A = class 0
@@ -41,32 +43,19 @@ while preserving the internal geometry of the classes.
 
 The optimization objective is:
 
-    min_T
+    min_T-SWD(T(A), T(B))+ λ*L_geometry
 
-        -SWD(T(A), T(B))
-        +
-        λ L_geometry
-
-The negative sign converts maximization into the minimization form used by
-standard optimizers.
+The negative sign converts maximization into the minimization form used by standard optimizers.
 
 ---
 
 ## Geometry Preservation
 
-For two samples xi and xj, we want:
-
-    ||T(xi) - T(xj)|| ≈ ||xi - xj||
+For two samples xi and xj, we want: ||T(xi) - T(xj)|| to be similar to ||xi - xj||
 
 Therefore the geometry loss is:
 
-    L_geometry =
-        mean(
-            (d_transformed - d_original)^2
-        )
-
-This encourages the transformation to separate the classes without
-arbitrarily destroying the structure within each class.
+    L_geometry = MSE of ((d_transformed - d_original))
 
 ---
 
@@ -100,7 +89,7 @@ arbitrarily destroying the structure within each class.
                Optimization
                      │
                      ▼
-             Learned Feature
+              Learned Feature
                Representation
                      │
                      ▼
